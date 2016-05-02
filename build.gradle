@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
+    }
+}
+
+plugins{
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+jar {
+    baseName = 'remrem-shared'
+    version =  '0.1.0'
+}
+
+group 'com.ericsson.eiffel.remrem'
+version '1.0-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.12'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile'com.google.code.gson:gson:2.6.2'
+    testCompile 'junit:junit:4.12'
+}
