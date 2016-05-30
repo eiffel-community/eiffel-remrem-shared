@@ -1,4 +1,4 @@
-package com.ericsson.eiffel.remrem.generate.services;
+package com.ericsson.eiffel.remrem.shared;
 
 
 import com.google.gson.JsonObject;
