@@ -5,10 +5,10 @@ import com.google.gson.JsonObject;
 public interface MsgService {
 
     /**
-     * 
-     * @param msgType
-     * @param bodyJson
-     * @return
+     * Generates the event as string from the input json Object based on the message type.
+     * @param String msgType
+     * @param JsonObject bodyJson
+     * @return the generated event as string format
      */
     String generateMsg(String msgType, JsonObject bodyJson);
 
