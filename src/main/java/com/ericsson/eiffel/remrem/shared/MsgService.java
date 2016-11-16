@@ -4,11 +4,6 @@ import com.google.gson.JsonObject;
 
 public interface MsgService {
 
-    String EVENT_ID = "eventId";
-    String ID = "id";
-    String META = "meta";
-    String EIFFEL_MESSAGE_VERSIONS = "eiffelMessageVersions";
-
     /**
      * 
      * @param msgType
@@ -18,9 +13,9 @@ public interface MsgService {
     String generateMsg(String msgType, JsonObject bodyJson);
 
     /**
-     * Get the event id from json object.
-     * @param bodyJson
-     * @return
+     * Returns the Event Id from the json object. 
+     * @param JsonObject bodyJson
+     * @return the eventId from json object if event id not available then returns the null value
      */
     String getEventId(JsonObject bodyJson);
 }
