@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
@@ -20,23 +20,46 @@ import java.util.jar.Manifest;
  */
 public class VersionService {
 
-	public static Map getMessagingVersions() {
-        Enumeration resEnum;
-        TreeMap<String, String> versionsMap = new TreeMap<>();
+	/** This method will load and parse the MINIFEST files to get the version of the loaded messaging protocols.
+	 *  It is required to define the versions as mainifest attributes in the build.gradle or pom.xml files
+	 *  using attributes "remremVersionKey" and "isEndpointVersion" to specify the type of the protocol or service 
+	 *  and if it is endpoint or not respectively. 
+	 *  Example for build.gradle:
+	 *  manifest {
+     *   attributes('remremVersionKey': 'semanticsVersion')
+     *   attributes('semanticsVersion': version)
+     *   attributes('isEndpointVersion': 'true')
+     *   }
+	 * @return a map containing the protocol and service types with their versions
+	 * {"endpointVersions" : {"semanticsVersion" : "1.1.1"},
+	 * "serviceVersion": {"remremGenerateVersion": "0.1.1"}} 
+	 */
+	public static Map<String, Map<String, String>> getMessagingVersions() {
+        Enumeration<?> resEnum;
+        Map<String, Map<String, String>> versions = new HashMap<>();
+        Map<String, String> endpointVersions = new HashMap<String, String>();
+        Map<String, String> serviceVersion = new HashMap<String, String>();
+        
         try {
             resEnum = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME);
             while (resEnum.hasMoreElements()) {
                 try {
-                    URL url = (URL)resEnum.nextElement();                    
+                    URL url = (URL)resEnum.nextElement();
                     InputStream is = url.openStream();
                     if (is != null) {
                         Manifest manifest = new Manifest(is);
                         Attributes mainAttribs = manifest.getMainAttributes();
-                        String versionKey = mainAttribs.getValue("Remrem-Version-Key");
+                        String versionKey = mainAttribs.getValue("remremVersionKey");
+                        
                         if (versionKey != null) {
                             String version = mainAttribs.getValue(versionKey);
                             if (version != null) {
-                                versionsMap.put(versionKey, version);
+                                if(mainAttribs.getValue("isEndpointVersion") != null) {
+                                    endpointVersions.put(versionKey, version);
+                                } else {
+                                    serviceVersion.put(versionKey, version);
+                                }
+                                
                             }
                         }
                     }
@@ -45,9 +68,11 @@ public class VersionService {
                     // Silently ignore wrong manifests on classpath?
                 }
             }
+            versions.put("endpointVersions", endpointVersions);
+            versions.put("serviceVersion", serviceVersion);
         } catch (IOException e1) {
             // Silently ignore wrong manifests on classpath?
         }
-        return versionsMap; 
+        return versions; 
     }
 }
