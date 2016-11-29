@@ -1,6 +1,6 @@
 package com.ericsson.eiffel.remrem.shared;
 
-public class CommonMsgService {
+public class JarLoaderUtility {
 
     /**
      * Dynamic jar loading from the jar path.
