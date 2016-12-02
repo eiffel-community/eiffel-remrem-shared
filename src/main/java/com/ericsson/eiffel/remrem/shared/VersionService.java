@@ -53,12 +53,12 @@ public class VersionService {
                     if (is != null) {
                         Manifest manifest = new Manifest(is);
                         Attributes mainAttribs = manifest.getMainAttributes();
-                        String versionKey = mainAttribs.getValue("REMREM_VERSION_KEY");
+                        String versionKey = mainAttribs.getValue(REMREM_VERSION_KEY);
 
                         if (versionKey != null) {
                             String version = mainAttribs.getValue(versionKey);
                             if (version != null) {
-                                if (mainAttribs.getValue("IS_ENDPOINT_VERSION") != null) {
+                                if (mainAttribs.getValue(IS_ENDPOINT_VERSION) != null) {
                                     endpointVersions.put(versionKey, version);
                                 } else {
                                     serviceVersion.put(versionKey, version);
@@ -70,8 +70,8 @@ public class VersionService {
                     // Silently ignore wrong manifests on classpath?
                 }
             }
-            versions.put("ENDPOINT_VERSION", endpointVersions);
-            versions.put("SERVICE_VERSION", serviceVersion);
+            versions.put(ENDPOINT_VERSION, endpointVersions);
+            versions.put(SERVICE_VERSION, serviceVersion);
         } catch (IOException e1) {
             // Silently ignore wrong manifests on classpath?
         }
