@@ -15,6 +15,9 @@ plugins{
     id 'eclipse'
 }
 
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
 jar {
     baseName = 'remrem-shared'
     version =  '0.2.0'
@@ -24,12 +27,13 @@ group 'com.ericsson.eiffel.remrem'
 version '1.0-SNAPSHOT'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
+    gradleVersion = '3.1'
     distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
