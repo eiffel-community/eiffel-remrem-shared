@@ -5,6 +5,7 @@ buildscript {
 
     dependencies {
         classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
     }
 }
 
@@ -17,12 +18,19 @@ plugins{
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
 
 jar {
     baseName = 'remrem-shared'
-    version =  '0.3.0'
+    version =  '0.3.1'
+}
+ext {
+    springSecurityVersion = "1.4.1.RELEASE"
 }
 
+bootRepackage{
+    enabled = false
+}
 group 'com.ericsson.eiffel.remrem'
 version '1.0-SNAPSHOT'
 
@@ -38,5 +46,7 @@ repositories {
 
 dependencies {
     compile'com.google.code.gson:gson:2.6.2'
+    compile("org.springframework.boot:spring-boot-starter-security:$springSecurityVersion")
+    compile 'javax.servlet:javax.servlet-api:3.0.1'
     testCompile 'junit:junit:4.12'
 }
