@@ -1,3 +1,6 @@
+## 0.3.2
+- Implemented base64 encryption functionality for LDAP manager password
+
 ## 0.3.1
 - Implemented ldap authentication functionality 
 

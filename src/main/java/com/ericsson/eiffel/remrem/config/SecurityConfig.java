@@ -1,7 +1,5 @@
 package com.ericsson.eiffel.remrem.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
@@ -23,19 +21,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${activedirectory.ldapUrl}")
     private String ldapUrl;
 
-    @Value("${activedirectory.ldapPassword}")
-    private String ldapPassword;
+    @Value("${activedirectory.managerPassword}")
+    private String managerPassword;
 
     @Value("${activedirectory.managerDn}")
     private String managerDn;
 
     @Value("${activedirectory.userSearchFilter}")
     private String userSearchFilter;
+    
+    @Value("${activedirectory.rootDn}")
+    private String rootDn;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.ldapAuthentication().userSearchFilter(userSearchFilter).contextSource().managerDn(managerDn)
-                .managerPassword(ldapPassword).url(ldapUrl);
+        auth.ldapAuthentication().userSearchFilter(userSearchFilter).contextSource().managerDn(managerDn).root(rootDn)
+                .managerPassword(new Base64Decryption().decode(managerPassword)).url(ldapUrl);
     }
 
     @Override
