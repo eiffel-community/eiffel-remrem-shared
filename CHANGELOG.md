@@ -1,3 +1,6 @@
+## 0.3.3
+- Added copyright headers to the source code.
+
 ## 0.3.2
 - Implemented base64 encryption functionality for LDAP manager password
 
