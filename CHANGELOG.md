@@ -1,5 +1,6 @@
 ## 0.3.3
 - Added copyright headers to the source code.
+- Added functionality to load and parse the MINIFEST files to get the version of service. 
 
 ## 0.3.2
 - Implemented base64 encryption functionality for LDAP manager password

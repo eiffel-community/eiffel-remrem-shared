@@ -14,6 +14,7 @@
 */
 package com.ericsson.eiffel.remrem.shared;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -24,6 +25,9 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
+import com.google.gson.JsonParser;
+
+
 /**
  * This class will search in all registered jars and their manifest file for
  * attribute Remrem-Version-Key. It will return a list with all versions found.
@@ -33,11 +37,17 @@ import java.util.jar.Manifest;
  */
 public class VersionService {
 
+    private static final String WEB_INF = "WEB-INF";
+    private static final String VERSION = "version";
+    private static final String META_INF_MANIFEST_MF = "META-INF/MANIFEST.MF";
     private static final String REMREM_VERSION_KEY = "remremVersionKey";
     private static final String IS_ENDPOINT_VERSION = "isEndpointVersion";
     private static final String ENDPOINT_VERSION = "endpointVersions";
     private static final String SERVICE_VERSION = "serviceVersion";
-
+    JsonParser parser = new JsonParser();
+    Map<String, Map<String, String>> versions = new HashMap<>();
+    Map<String, String> endpointVersions = new HashMap<String, String>();
+    Map<String, String> serviceVersion = new HashMap<String, String>();
     /**
      * This method will load and parse the MINIFEST files to get the version of
      * the loaded messaging protocols. It is required to define the versions as
@@ -52,12 +62,11 @@ public class VersionService {
      *         versions {"endpointVersions" : {"semanticsVersion" : "1.1.1"},
      *         "serviceVersion": {"remremGenerateVersion": "0.1.1"}}
      */
-    public static Map<String, Map<String, String>> getMessagingVersions() {
-        Enumeration<?> resEnum;
-        Map<String, Map<String, String>> versions = new HashMap<>();
-        Map<String, String> endpointVersions = new HashMap<String, String>();
-        Map<String, String> serviceVersion = new HashMap<String, String>();
+    
 
+    public Map<String, Map<String, String>> getMessagingVersions() {
+        Enumeration<?> resEnum;
+        
         try {
             resEnum = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME);
             while (resEnum.hasMoreElements()) {
@@ -68,10 +77,10 @@ public class VersionService {
                         Manifest manifest = new Manifest(is);
                         Attributes mainAttribs = manifest.getMainAttributes();
                         String versionKey = mainAttribs.getValue(REMREM_VERSION_KEY);
-
                         if (versionKey != null) {
                             String version = mainAttribs.getValue(versionKey);
                             if (version != null) {
+                                
                                 if (mainAttribs.getValue(IS_ENDPOINT_VERSION) != null) {
                                     endpointVersions.put(versionKey, version);
                                 } else {
@@ -84,11 +93,38 @@ public class VersionService {
                     // Silently ignore wrong manifests on classpath?
                 }
             }
+            if(serviceVersion.isEmpty()){
+                serviceVersion=getServiceVersion();
+            }
             versions.put(ENDPOINT_VERSION, endpointVersions);
             versions.put(SERVICE_VERSION, serviceVersion);
         } catch (IOException e1) {
             // Silently ignore wrong manifests on classpath?
         }
         return versions;
+    }
+    
+    /**
+     * this method will parse manifest file of current project.
+     *
+     * @return map containing the version of current project.
+     */
+    public Map<String, String> getServiceVersion() {
+        String resourcesPath = this.getClass().getClassLoader().getResource("").getPath();
+        String manifestPath = resourcesPath.substring(0, resourcesPath.lastIndexOf(WEB_INF)).concat(META_INF_MANIFEST_MF);
+        try {
+            Manifest manifest = new Manifest(new FileInputStream(manifestPath));
+            Attributes mainAttribs = manifest.getMainAttributes();
+            String versionKey = mainAttribs.getValue(REMREM_VERSION_KEY);
+            if (versionKey != null) {
+                String version = mainAttribs.getValue(versionKey);
+                if (version != null) {
+                    serviceVersion.put(VERSION, version);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return serviceVersion;
     }
 }
