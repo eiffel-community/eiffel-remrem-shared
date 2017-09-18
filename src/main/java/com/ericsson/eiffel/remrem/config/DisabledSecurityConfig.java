@@ -22,7 +22,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Profile("!integration-test")
-@ConditionalOnProperty(value = "activedirectory.enabled", havingValue = "false")
+@ConditionalOnProperty(value = "activedirectory.enabled", havingValue = "false", matchIfMissing = true)
 @Configuration
 @EnableWebSecurity
 public class DisabledSecurityConfig extends WebSecurityConfigurerAdapter {
