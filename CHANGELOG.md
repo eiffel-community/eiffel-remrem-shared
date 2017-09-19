@@ -1,3 +1,6 @@
+## 0.3.4
+- Added functionality to disable ldap authentication if ldap properties are not configured.
+
 ## 0.3.3
 - Added copyright headers to the source code.
 - Added functionality to load and parse the MINIFEST files to get the version of service. 
