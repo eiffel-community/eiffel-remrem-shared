@@ -1,3 +1,6 @@
+## 0.3.5
+- Removed ldap related functionality from shared
+
 ## 0.3.4
 - Added functionality to disable ldap authentication if ldap properties are not configured.
 
