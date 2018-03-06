@@ -44,10 +44,14 @@ public class VersionService {
     private static final String IS_ENDPOINT_VERSION = "isEndpointVersion";
     private static final String ENDPOINT_VERSION = "endpointVersions";
     private static final String SERVICE_VERSION = "serviceVersion";
+    public static final String REMREM_SEM_GROUPID = "groupId";
+    public static final String REMREM_SEM_ARTIFACTID = "artifactId";
+    public static final String REMREM_SEM_GAV = "remremSemGAV";
     JsonParser parser = new JsonParser();
     Map<String, Map<String, String>> versions = new HashMap<>();
     Map<String, String> endpointVersions = new HashMap<String, String>();
     Map<String, String> serviceVersion = new HashMap<String, String>();
+    Map<String, String> remremSemGAV = new HashMap<String, String>();
     /**
      * This method will load and parse the MINIFEST files to get the version of
      * the loaded messaging protocols. It is required to define the versions as
@@ -79,6 +83,9 @@ public class VersionService {
                         String versionKey = mainAttribs.getValue(REMREM_VERSION_KEY);
                         if (versionKey != null) {
                             String version = mainAttribs.getValue(versionKey);
+                            remremSemGAV.put(REMREM_SEM_GROUPID, mainAttribs.getValue(REMREM_SEM_GROUPID));
+                            remremSemGAV.put(REMREM_SEM_ARTIFACTID, mainAttribs.getValue(REMREM_SEM_ARTIFACTID));
+                            remremSemGAV.put(versionKey, mainAttribs.getValue(versionKey));
                             if (version != null) {
                                 
                                 if (mainAttribs.getValue(IS_ENDPOINT_VERSION) != null) {
@@ -98,6 +105,7 @@ public class VersionService {
             }
             versions.put(ENDPOINT_VERSION, endpointVersions);
             versions.put(SERVICE_VERSION, serviceVersion);
+            versions.put(REMREM_SEM_GAV, remremSemGAV);
         } catch (IOException e1) {
             // Silently ignore wrong manifests on classpath?
         }
