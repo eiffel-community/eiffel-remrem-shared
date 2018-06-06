@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-    compile'com.google.code.gson:gson:2.6.2'
+    compile'com.google.code.gson:gson:2.8.1'
     compile 'commons-codec:commons-codec:1.10'
     testCompile 'junit:junit:4.12'
 }
