@@ -12,4 +12,6 @@ jdk:
 before_install:
   - uname -a
   - chmod +x pom.xml
+  
+script:
  
