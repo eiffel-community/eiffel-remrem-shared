@@ -1,3 +1,9 @@
+## 0.3.7
+- Migrated from gradle to maven
+
+## 0.3.6
+- Updated GSON version
+
 ## 0.3.5
 - Removed ldap related functionality from shared
 
