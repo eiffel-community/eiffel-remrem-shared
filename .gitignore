@@ -1,14 +1,7 @@
 .idea/
 *.iml
 
-gradle/
-gradlew
-gradlew.bat
-
-build/
-.gradle/
-/bin/
-
 .classpath
 .project
 .settings/
+/target/
