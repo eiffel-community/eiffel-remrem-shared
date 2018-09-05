@@ -1,3 +1,6 @@
+## 0.3.8
+- Updated eiffel-remrem-parent version
+
 ## 0.3.7
 - Migrated from gradle to maven
 
