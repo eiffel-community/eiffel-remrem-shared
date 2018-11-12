@@ -1,3 +1,6 @@
+## 0.4.0
+- Uplifted eiffel-remrem-parent version from 0.0.5 to 0.0.6
+
 ## 0.3.8
 - Updated eiffel-remrem-parent version
 
