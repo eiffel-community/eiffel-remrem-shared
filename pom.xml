@@ -6,10 +6,10 @@
     <parent>
         <groupId>com.github.Ericsson</groupId>
         <artifactId>eiffel-remrem-parent</artifactId>
-        <version>0.0.6</version>
+        <version>0.0.7</version>
     </parent>
     <artifactId>eiffel-remrem-shared</artifactId>
-    <version>0.4.0</version>
+    <version>0.4.1</version>
     <packaging>jar</packaging>
     <repositories>
         <repository>
