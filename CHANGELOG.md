@@ -1,3 +1,15 @@
+## 2.0.1
+- Uplifted eiffel-remrem-parent version from 2.0.0 to 2.0.1.
+
+## 2.0.0
+- Upgraded eiffel-remrem-parent version from 1.0.0 to 2.0.0.
+
+## 1.0.0
+- Upgraded eiffel-remrem-parent version from 0.0.8 to 1.0.0.
+
+## 0.4.2
+- Upgraded eiffel-remrem-parent version from 0.0.7 to 0.0.8.
+
 ## 0.4.1
 - Upgraded eiffel-remrem-parent version from 0.0.6 to 0.0.7.
 
