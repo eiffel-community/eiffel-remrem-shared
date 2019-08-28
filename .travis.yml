@@ -1,4 +1,11 @@
 sudo: required
+
+dist: trusty
+
+services:
+  - rabbitmq
+  
+sudo: required
 addons:
   apt:
     packages:
