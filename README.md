@@ -18,6 +18,8 @@
 <img src="./images/logo.png" alt="Eiffel RemRem" width="350"/>
 
 # Eiffel RemRem Shared
+
+[![Sandbox badge](https://img.shields.io/badge/Stage-Sandbox-yellow)](https://github.com/eiffel-community/community/blob/master/PROJECT_LIFECYCLE.md#stage-sandbox)
 [![](https://jitpack.io/v/eiffel-community/eiffel-remrem-shared.svg)](https://jitpack.io/#eiffel-community/eiffel-remrem-shared)
 
 This repository contains shared functionality of the [eiffel-remrem](https://github.com/eiffel-community/eiffel-remrem) components.
